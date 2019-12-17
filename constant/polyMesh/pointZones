@@ -1,0 +1,99 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       regIOobject;
+    location    "constant/polyMesh";
+    object      pointZones;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+13
+(
+Interface0LeftInterface0Right0CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+Interface1LeftInterface1Right1CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+Interface2LeftInterface2Right2CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+Interface3LeftInterface3Right3CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+Interface4LeftInterface4Right4CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+Interface5LeftInterface5Right5CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+Interface6LeftInterface6Right6CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+Interface7LeftInterface7Right7CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+Interface8LeftInterface8Right8CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+Interface9LeftInterface9Right9CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+Interface10LeftInterface10Right10CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+InterfaceInletLeftInterfaceInletRight11CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+
+InterfaceOutletLeftInterfaceOutletRight12CutPointZone
+{
+    type pointZone;
+pointLabels     0();
+}
+)
+
+// ************************************************************************* //
