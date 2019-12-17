@@ -9,50 +9,57 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volVectorField;
+    class       volScalarField;
     location    "0";
-    object      U;
+    object      alphat;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 1 -1 0 0 0 0];
+dimensions      [1 -1 -1 0 0 0 0];
 
-internalField   uniform (6.24 0 0);
+internalField   uniform 0;
 
 boundaryField
 {
     inlet
     {
-        type            fixedValue;
-        value           uniform (6.24 0 0);
+        type            calculated;
+        value           uniform 0;
     }
     outlet
     {
-        type            zeroGradient;
+        type            calculated;
+        value           uniform 0;
     }
     upperWallInlet
     {
-        type            noSlip;
+        type            compressible::alphatJayatillekeWallFunction;
+        value           uniform 0;
     }
     upperWallRibs
     {
-        type            noSlip;
+        type            compressible::alphatJayatillekeWallFunction;
+        value           uniform 0;
     }
     upperWallOutlet
     {
-        type            noSlip;
+        type            compressible::alphatJayatillekeWallFunction;
+        value           uniform 0;
     }
     lowerWallInlet
     {
-        type            noSlip;
+        type            compressible::alphatJayatillekeWallFunction;
+        value           uniform 0;
     }
     lowerWallRibs
     {
-        type            noSlip;
+        type            compressible::alphatJayatillekeWallFunction;
+        value           uniform 0;
     }
     lowerWallOutlet
     {
-        type            noSlip;
+        type            compressible::alphatJayatillekeWallFunction;
+        value           uniform 0;
     }
     front
     {

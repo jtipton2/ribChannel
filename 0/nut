@@ -31,12 +31,32 @@ boundaryField
         type            calculated;
         value           uniform 0;
     }
-    upperWall
+    upperWallInlet
     {
         type            nutUSpaldingWallFunction;
         value           uniform 0;
     }
-    lowerWall
+    upperWallRibs
+    {
+        type            nutUSpaldingWallFunction;
+        value           uniform 0;
+    }
+    upperWallOutlet
+    {
+        type            nutUSpaldingWallFunction;
+        value           uniform 0;
+    }
+    lowerWallInlet
+    {
+        type            nutUSpaldingWallFunction;
+        value           uniform 0;
+    }
+    lowerWallRibs
+    {
+        type            nutUSpaldingWallFunction;
+        value           uniform 0;
+    }
+    lowerWallOutlet
     {
         type            nutUSpaldingWallFunction;
         value           uniform 0;

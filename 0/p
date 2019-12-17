@@ -15,9 +15,9 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -2 0 0 0 0];
+dimensions      [1 -1 -2 0 0 0 0];
 
-internalField   uniform 0;
+internalField   uniform 101325;
 
 boundaryField
 {
@@ -28,13 +28,29 @@ boundaryField
     outlet
     {
         type            fixedValue;
-        value           uniform 0;
+        value           uniform 101325;
     }
-    upperWall
+    upperWallInlet
     {
         type            zeroGradient;
     }
-    lowerWall
+    upperWallRibs
+    {
+        type            zeroGradient;
+    }
+    upperWallOutlet
+    {
+        type            zeroGradient;
+    }
+    lowerWallInlet
+    {
+        type            zeroGradient;
+    }
+    lowerWallRibs
+    {
+        type            zeroGradient;
+    }
+    lowerWallOutlet
     {
         type            zeroGradient;
     }
