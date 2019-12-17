@@ -50,7 +50,12 @@ boundaryField
         type            kqRWallFunction;
         value           uniform 0.08;
     }
-    lowerWallRibs
+    lowerWallRibs1
+    {
+        type            kqRWallFunction;
+        value           uniform 0.08;
+    }
+    lowerWallRibs2
     {
         type            kqRWallFunction;
         value           uniform 0.08;

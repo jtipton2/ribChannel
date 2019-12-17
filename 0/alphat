@@ -51,7 +51,12 @@ boundaryField
         type            compressible::alphatJayatillekeWallFunction;
         value           uniform 0;
     }
-    lowerWallRibs
+    lowerWallRibs1
+    {
+        type            compressible::alphatJayatillekeWallFunction;
+        value           uniform 0;
+    }
+    lowerWallRibs2
     {
         type            compressible::alphatJayatillekeWallFunction;
         value           uniform 0;

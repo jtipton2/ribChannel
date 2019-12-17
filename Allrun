@@ -52,7 +52,7 @@ rhoSimpleFoam -postProcess -func wallShearStress -latestTime
 rhoSimpleFoam -postProcess -func wallHeatFlux -latestTime
 
 postProcess -latestTime -func 'flowRatePatch(name=inlet)'
-postProcess -latestTime -func 'patchIntegrate(name=upperWallRibs,wallHeatFlux)'
+postProcess -latestTime -func 'patchIntegrate(name=lowerWallRibs2,wallHeatFlux)'
 postProcess -func sampleDict1 -latestTime
 
 postProcess -func sampleDict2 -latestTime

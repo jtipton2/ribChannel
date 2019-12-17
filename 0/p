@@ -46,7 +46,11 @@ boundaryField
     {
         type            zeroGradient;
     }
-    lowerWallRibs
+    lowerWallRibs1
+    {
+        type            zeroGradient;
+    }
+    lowerWallRibs2
     {
         type            zeroGradient;
     }

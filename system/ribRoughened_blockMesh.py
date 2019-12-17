@@ -13,6 +13,8 @@
 # v3 --> 10/27/2019
 #    --> Split the upperWall and lowerWall into 3 regions
 #    --> Added mesh refinement at the top
+# v4 --> 12/17/2019
+#    --> Split lower wall into 2 named sections for ribs and flat wall
 # ------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------
 
@@ -216,22 +218,31 @@ file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face5+16*segm
 file1.write("        );\n    }\n\n")
 
 
-# Lower Wall Ribs
-file1.write("    lowerWallRibs\n    {\n        type wall;\n        faces\n        (\n")
+# Lower Wall Ribbed Section - Ribs
+file1.write("    lowerWallRibs1\n    {\n        type wall;\n        faces\n        (\n")
 
 face6 = np.array([2,1,7,8])
 file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face6+16*segments+12))
 
 face1 = np.array([6,7,15,14])
 face2 = np.array([7,0,8,15])
-face3 = np.array([0,1,9,8])
 face4 = np.array([1,2,10,9])
 for n in range(0,segments):
     file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1+16*n))
     file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2+16*n))
-    file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face3+16*n))
     if n != segments-1:
          file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face4+16*n))
+
+file1.write("        );\n    }\n\n")
+
+
+# Lower Wall Ribbed Section - Flat Wall
+file1.write("    lowerWallRibs2\n    {\n        type wall;\n        faces\n        (\n")
+
+face3 = np.array([0,1,9,8])
+
+for n in range(0,segments):
+    file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face3+16*n))
 
 file1.write("        );\n    }\n\n")
 

@@ -36,12 +36,7 @@ boundaryField
     }
     upperWallRibs
     {
-        type            externalWallHeatFluxTemperature;
-        mode            flux;
-        q               uniform 100000;
-        relaxation      1.0;
-        kappaMethod     fluidThermo;
-        value           uniform 293;
+        type            zeroGradient;
     }
     upperWallOutlet
     {
@@ -51,9 +46,18 @@ boundaryField
     {
         type            zeroGradient;
     }
-    lowerWallRibs
+    lowerWallRibs1
     {
         type            zeroGradient;
+    }
+    lowerWallRibs2
+    {
+        type            externalWallHeatFluxTemperature;
+        mode            flux;
+        q               uniform 100000;
+        relaxation      1.0;
+        kappaMethod     fluidThermo;
+        value           uniform 293;
     }
     lowerWallOutlet
     {

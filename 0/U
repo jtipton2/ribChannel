@@ -46,7 +46,11 @@ boundaryField
     {
         type            noSlip;
     }
-    lowerWallRibs
+    lowerWallRibs1
+    {
+        type            noSlip;
+    }
+    lowerWallRibs2
     {
         type            noSlip;
     }
