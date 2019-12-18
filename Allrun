@@ -8,12 +8,15 @@ rm PyFoam*
 rm *.foam
 rm -r postProcessing
 rm -r [1-9]*
+rm system/blockMeshDict
 
 
 
 #
 # Run the simulation
 #
+python system/ribRoughened_blockMesh.py
+mv blockMeshDict system/
 blockMesh
 checkMesh
 renumberMesh -overwrite

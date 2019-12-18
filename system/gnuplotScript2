@@ -19,15 +19,6 @@ plot [][] Dir2.'pressDropCenterline_p.xy' u ($1*1000):($2-101325) w l title "Ope
 
 set key right top
 set xlabel 'x (m)'
-set ylabel 'wallShearStress X-component'
-set title 'Upper Wall Shear Stress'
-set grid
-set output Dir3."upperWallShearStress.png"
-plot [][] Dir1.'upperWall_wallShearStress.xy' u ($1):($2) w l title "OpenFoam"
-
-
-set key right top
-set xlabel 'x (m)'
 set ylabel 'y+'
 set title 'Lower Wall Turbulence Wall Function y+'
 set grid
