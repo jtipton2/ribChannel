@@ -79,6 +79,40 @@ functions
 
 	fields			( U );
     }
+
+    deltaPressure
+    {
+        type            fieldValueDelta;
+        libs ("libfieldFunctionObjects.so");
+        operation       subtract;
+
+        region1
+        {
+            type            surfaceFieldValue;
+            libs            ("libfieldFunctionObjects.so");
+            log             false;
+            writeControl    timeStep;
+            writeFields     false;
+            regionType      patch;
+            name            inlet;
+            operation       areaAverage;
+            fields          ( p );
+        }
+
+        region2
+        {
+            type            surfaceFieldValue;
+            libs            ("libfieldFunctionObjects.so");
+            log             false;
+            writeControl    timeStep;
+            writeFields     false;
+            regionType      patch;
+            name            outlet;
+            operation       areaAverage;
+            fields          ( p );
+        }
+    }
+
 }
 
 // ************************************************************************* //

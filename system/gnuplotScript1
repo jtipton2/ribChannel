@@ -5,6 +5,9 @@ set term png
 Dir0 = "`pwd`"
 Dir1 = Dir0."/postProcessing/minmaxT/0/"
 Dir2 = Dir0."/postProcessing/minmaxU/0/"
+Dir3 = Dir0."/postProcessing/deltaPressure/0/"
+Dir4 = Dir0."/postProcessing/deltaPressure.region1/0/"
+Dir5 = Dir0."/postProcessing/deltaPressure.region2/0/"
 
 cd Dir0
 
@@ -22,6 +25,20 @@ set grid
 set output "logs/convergence_maxUx.png"
 plot Dir2."fieldMinMax.dat" u ($1):($7) w l
 
+
+set xlabel 'iteration'
+set ylabel 'Pressure (kPa)'
+set grid
+set output "logs/convergence_pressure.png"
+plot [][] Dir4."surfaceFieldValue.dat" u ($1):($2/100000) w l title "inlet", Dir5."surfaceFieldValue.dat" u ($1):($2/100000) w l title "outlet"
+
+
+set xlabel 'iteration'
+set ylabel 'Pressure (Pa)'
+set grid
+set output "logs/convergence_pressureDrop.png"
+set yrange [0:100]
+plot Dir3."fieldValueDelta.dat" u ($1):($2) w l title "Inlet/Outlet Pressure Drop"
 
 
 set logscale y
