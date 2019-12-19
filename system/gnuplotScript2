@@ -8,13 +8,20 @@ cd Dir0
 set term png
 
 
+f(x) = a*x + b
+fit f(x) Dir2.'pressDropCenterlineRibs_p.xy' u ($1*1000):($2-101325) via a, b
+title_f(a,b) = sprintf('Slope %.6f Pa/mm', a)
+
+
+
 set key right top
 set xlabel 'x (mm)'
 set ylabel 'Gage Pressure (Pa)'
 set title 'Centerline Pressure Drop'
 set grid
 set output Dir3."midlinePressureDrop.png"
-plot [][] Dir2.'pressDropCenterline_p.xy' u ($1*1000):($2-101325) w l title "OpenFoam"
+plot [][] Dir2.'pressDropCenterline_p.xy' u ($1*1000):($2-101325) w l t "OpenFoam", f(x) t title_f(a,b), Dir2.'pressDropCenterlineRibs_p.xy' u ($1*1000):($2-101325) w l t "Developed Section"
+
 
 
 set key right top
