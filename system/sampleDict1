@@ -22,7 +22,7 @@ sets
         axis    x;
         start   (-0.750 0.025 0.0);
         end     (0.970 0.025 0.0);
-        nPoints 1000;
+        nPoints 1721;
     }
 );
 

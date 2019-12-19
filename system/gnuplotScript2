@@ -10,8 +10,8 @@ set term png
 
 set key right top
 set xlabel 'x (mm)'
-set ylabel 'Midline Pressure (Pa Gage)'
-set title 'Rib-Roughened Section Pressure Drop'
+set ylabel 'Gage Pressure (Pa)'
+set title 'Centerline Pressure Drop'
 set grid
 set output Dir3."midlinePressureDrop.png"
 plot [][] Dir2.'pressDropCenterline_p.xy' u ($1*1000):($2-101325) w l title "OpenFoam"
