@@ -52,12 +52,8 @@ boundaryField
     }
     lowerWallRibs2
     {
-        type            externalWallHeatFluxTemperature;
-        mode            flux;
-        q               uniform 100000;
-        relaxation      1.0;
-        kappaMethod     fluidThermo;
-        value           uniform 293;
+        type            fixedGradient;
+        gradient        uniform 39770.9;
     }
     lowerWallOutlet
     {

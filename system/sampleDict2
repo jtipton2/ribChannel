@@ -3,7 +3,7 @@ libs            	("libsampling.so");
 
 writeControl    	writeTime;
 
-interpolationScheme 	cellPointFace;
+interpolationScheme 	cellPoint;
 
 setFormat       	raw;
 
@@ -15,7 +15,7 @@ sets
 	axis	x;
 	start	(-0.750 0.0 0.0);
 	end	(0.970 0.0 0.0);
-	nPoints	1000;
+	nPoints	1721;
     }
 );
 
