@@ -9,7 +9,9 @@ rm *.foam
 rm -r postProcessing
 rm -r [1-9]*
 rm system/blockMeshDict
-
+rm -r 0/uniform
+rm 0/wallHeatFlux 0/wallShearStress 0/yPlus
+rm fit.log
 
 
 #
