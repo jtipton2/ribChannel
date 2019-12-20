@@ -31,7 +31,7 @@ solvers
 	minIter		 3;
     }
 
-    U
+    "(U|e)"
     {
         solver          PBiCG;
         preconditioner  DILU;
@@ -72,6 +72,7 @@ SIMPLE
         nuTilda         1e-8;
         k               1e-8;
         omega           1e-8;
+        e               1e-8;
     }
 }
 
@@ -80,6 +81,7 @@ relaxationFactors
     fields
     {
         p               0.3;
+        rho             0.05;
     }
     equations
     {
@@ -87,6 +89,7 @@ relaxationFactors
         k               0.7;
         omega           0.7;
         nut             0.7;
+        e               0.7;
     }
 }
 

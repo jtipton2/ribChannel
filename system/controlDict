@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     simpleFoam;
+application     rhoSimpleFoam;
 
 startFrom       startTime;
 
@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         600;
+endTime         800;
 
 deltaT          1;
 
@@ -35,7 +35,7 @@ purgeWrite      5;
 
 writeFormat     ascii;
 
-writePrecision  6;
+writePrecision  7;
 
 writeCompression off;
 
@@ -47,25 +47,72 @@ runTimeModifiable true;
 
 functions
 {
-    probes_Uref
+    minmaxT
     {
-        type			probes;
+        type			fieldMinMax;
 	functionObjectLibs	("libfieldFunctionObjects.so");
 	enabled			true;
 
+	write			true;
 	writeControl		timeStep;
 	writeInterval		1;
-	objects			();	
-
-	executeControl		timeStep;
-	executeInterval		1;
 
 	log			true;
 
-	probeLocations		((-0.005 0.025 0.0));
+	mode			magnitude;
+
+	fields			( T );
+    }
+    minmaxU
+    {
+        type			fieldMinMax;
+	functionObjectLibs	("libfieldFunctionObjects.so");
+	enabled			true;
+
+	write			true;
+	writeControl		timeStep;
+	writeInterval		1;
+
+	log			true;
+
+	mode			magnitude;
 
 	fields			( U );
     }
+
+    deltaPressure
+    {
+        type            fieldValueDelta;
+        libs ("libfieldFunctionObjects.so");
+        operation       subtract;
+
+        region1
+        {
+            type            surfaceFieldValue;
+            libs            ("libfieldFunctionObjects.so");
+            log             false;
+            writeControl    timeStep;
+            writeFields     false;
+            regionType      patch;
+            name            inlet;
+            operation       areaAverage;
+            fields          ( p );
+        }
+
+        region2
+        {
+            type            surfaceFieldValue;
+            libs            ("libfieldFunctionObjects.so");
+            log             false;
+            writeControl    timeStep;
+            writeFields     false;
+            regionType      patch;
+            name            outlet;
+            operation       areaAverage;
+            fields          ( p );
+        }
+    }
+
 }
 
 // ************************************************************************* //

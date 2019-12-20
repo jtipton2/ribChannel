@@ -37,7 +37,10 @@ divSchemes
     div(phi,k)      bounded Gauss linearUpwind default;
     div(phi,omega)  bounded Gauss linearUpwind default;
 
-    div((nuEff*dev2(T(grad(U))))) Gauss linear;
+    div(phi,e)      bounded Gauss linearUpwind default;
+    div(phi,Ekp)    bounded Gauss linearUpwind default;
+
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
 }
 
 laplacianSchemes

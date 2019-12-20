@@ -30,11 +30,31 @@ boundaryField
     {
         type            zeroGradient;
     }
-    upperWall
+    upperWallInlet
     {
         type            noSlip;
     }
-    lowerWall
+    upperWallRibs
+    {
+        type            noSlip;
+    }
+    upperWallOutlet
+    {
+        type            noSlip;
+    }
+    lowerWallInlet
+    {
+        type            noSlip;
+    }
+    lowerWallRibs1
+    {
+        type            noSlip;
+    }
+    lowerWallRibs2
+    {
+        type            noSlip;
+    }
+    lowerWallOutlet
     {
         type            noSlip;
     }

@@ -1,0 +1,22 @@
+type            	sets;
+libs            	("libsampling.so");
+
+writeControl    	writeTime;
+
+interpolationScheme 	cellPoint;
+
+setFormat       	raw;
+
+sets
+(
+    lowerWall
+    {
+	type	lineUniform;
+	axis	x;
+	start	(-0.750 0.0 0.0);
+	end	(0.970 0.0 0.0);
+	nPoints	1721;
+    }
+);
+
+fields          ( yPlus wallShearStress wallHeatFlux T);

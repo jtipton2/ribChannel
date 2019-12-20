@@ -1,10 +1,20 @@
 # ------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------
 # Joseph B. Tipton, Jr.
-# 7/16/2019
+# 7/19/2019
 #
 # Python script to create a blockMeshDict file for meshing in OpenFOAM.
 # Creates a rib-roughened channel matching experiments of Wang & Sunden.
+#
+# VERSION HISTORY:
+#
+# v2 --> Fixed block vertice definitions to start at a consistent origin
+#    --> Defined interior interfaces between blocks with duplicate vertices
+# v3 --> 10/27/2019
+#    --> Split the upperWall and lowerWall into 3 regions
+#    --> Added mesh refinement at the top
+# v4 --> 12/17/2019
+#    --> Split lower wall into 2 named sections for ribs and flat wall
 # ------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------
 
@@ -17,7 +27,7 @@ import numpy as np
 Dh = 50         # hydraulic diameter
 e = 0.1*Dh      # rib height
 P = 12*e        # rib spacing
-segments =  2   # number of rib segments
+segments = 12   # number of rib segments
 outlet = 5*Dh   # length of outlet segment
 inlet = 750     # length of inlet segment
 
@@ -112,23 +122,23 @@ blockI  = np.array([7,2,3,4,15,10,11,12])
 blockII = np.array([6,7,4,5,14,15,12,13])
 
 for n in range(0,segments):
-    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (40 10 1)\n    simpleGrading (1 1 1)\n\n".format(i=block0+16*n))
-    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (40 40 1)\n    simpleGrading (1 1 1)\n\n".format(i=blockI+16*n))
-    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (10 40 1)\n    simpleGrading (1 1 1)\n\n".format(i=blockII+16*n))
+    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (50 10 1)\n    simpleGrading (1 8 1)\n\n".format(i=block0+16*n))
+    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (50 40 1)\n    simpleGrading (1 ((0.875 0.75 1)(0.125 0.25 0.125)) 1)\n\n".format(i=blockI+16*n))
+    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    ( 5 40 1)\n    simpleGrading (1 ((0.875 0.75 1)(0.125 0.25 0.125)) 1)\n\n".format(i=blockII+16*n))
 
 # Outlet segment
 block0  = np.array([0,1,2,5,6,7,8,11])
 blockI  = np.array([5,2,3,4,11,8,9,10])
 
-file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (40 10 1)\n    simpleGrading (1 1 1)\n\n".format(i=block0+16*segments))
-file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (40 40 1)\n    simpleGrading (1 1 1)\n\n".format(i=blockI+16*segments))
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (40 10 1)\n    simpleGrading (8 8 1)\n\n".format(i=block0+16*segments))
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (40 40 1)\n    simpleGrading (8 ((0.875 0.75 1)(0.125 0.25 0.125)) 1)\n\n".format(i=blockI+16*segments))
 
 # Inlet segment
 block0  = np.array([0,1,2,5,6,7,8,11])
 blockI  = np.array([5,2,3,4,11,8,9,10])
 
-file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (160 10 1)\n    simpleGrading (1 1 1)\n\n".format(i=block0+16*segments+12))
-file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (160 40 1)\n    simpleGrading (1 1 1)\n\n".format(i=blockI+16*segments+12))
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (160 10 1)\n    simpleGrading (0.125 8 1)\n\n".format(i=block0+16*segments+12))
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (160 40 1)\n    simpleGrading (0.125 ((0.875 0.75 1)(0.125 0.25 0.125)) 1)\n\n".format(i=blockI+16*segments+12))
 
 file1.write(");\n\n")
 
@@ -153,6 +163,7 @@ file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1+16*segm
 file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2+16*segments+12))
 file1.write("        );\n    }\n\n")
 
+
 # Outlet
 face1 = np.array([1,2,8,7])
 face2 = np.array([2,3,9,8])
@@ -162,44 +173,87 @@ file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1+16*segm
 file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2+16*segments))
 file1.write("        );\n    }\n\n")
 
-# Upper Wall
-file1.write("    upperWall\n    {\n        type wall;\n        faces\n        (\n")
 
-face1 = np.array([3,4,12,11])
-face2 = np.array([4,5,13,12])
-for n in range(0,segments):
-    file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1+16*n))
-    file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2+16*n))
+# Upper Wall Inlet
+file1.write("    upperWallInlet\n    {\n        type wall;\n        faces\n        (\n")
 
 face3 = np.array([3,4,10,9])
-file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face3+16*segments))
 file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face3+16*segments+12))
 
 file1.write("        );\n    }\n\n")
 
-# Lower Wall
-file1.write("    lowerWall\n    {\n        type wall;\n        faces\n        (\n")
+
+# Upper Wall Ribs
+file1.write("    upperWallRibs\n    {\n        type wall;\n        faces\n        (\n")
+
+face1 = np.array([3,4,12,11])
+face2 = np.array([4,5,13,12])
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1))
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2))
+
+face1 = np.array([3,4,12,11])
+face2 = np.array([4,5,13,12])
+for n in range(1,segments):
+    file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1+16*n))
+    file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2+16*n))
+
+file1.write("        );\n    }\n\n")
+
+
+# Upper Wall Outlet
+file1.write("    upperWallOutlet\n    {\n        type wall;\n        faces\n        (\n")
+
+face3 = np.array([3,4,10,9])
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face3+16*segments))
+
+file1.write("        );\n    }\n\n")
+
+
+# Lower Wall Inlet
+file1.write("    lowerWallInlet\n    {\n        type wall;\n        faces\n        (\n")
+
+face5 = np.array([0,1,7,6])
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face5+16*segments+12))
+
+file1.write("        );\n    }\n\n")
+
+
+# Lower Wall Ribbed Section - Ribs
+file1.write("    lowerWallRibs1\n    {\n        type wall;\n        faces\n        (\n")
+
+face6 = np.array([2,1,7,8])
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face6+16*segments+12))
 
 face1 = np.array([6,7,15,14])
 face2 = np.array([7,0,8,15])
-face3 = np.array([0,1,9,8])
 face4 = np.array([1,2,10,9])
 for n in range(0,segments):
     file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1+16*n))
     file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2+16*n))
-    file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face3+16*n))
     if n != segments-1:
          file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face4+16*n))
 
-face5 = np.array([0,1,7,6])
-file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face5+16*segments))    #outlet block
-file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face5+16*segments+12)) #inlet block
+file1.write("        );\n    }\n\n")
 
-face6 = np.array([2,1,7,8])
-file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face6+16*segments+12)) #inlet block
 
+# Lower Wall Ribbed Section - Flat Wall
+file1.write("    lowerWallRibs2\n    {\n        type wall;\n        faces\n        (\n")
+
+face3 = np.array([0,1,9,8])
+
+for n in range(0,segments):
+    file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face3+16*n))
 
 file1.write("        );\n    }\n\n")
+
+
+# Lower Wall Outlet
+file1.write("    lowerWallOutlet\n    {\n        type wall;\n        faces\n        (\n")
+
+face5 = np.array([0,1,7,6])
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face5+16*segments))
+file1.write("        );\n    }\n\n")
+
 
 # Front
 file1.write("    front\n    {\n        type empty;\n        faces\n        (\n")
@@ -221,6 +275,7 @@ file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face5+16*segm
 
 file1.write("        );\n    }\n\n")
 
+
 # Back
 file1.write("    back\n    {\n        type empty;\n        faces\n        (\n")
 
@@ -241,13 +296,80 @@ file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face5+16*segm
 
 file1.write("        );\n    }\n\n")
 
+
+# Rib-roughened segment interfaces
+
+face1 = np.array([2,3,11,10])
+face2 = np.array([21,22,30,29])
+for n in range(0,segments-1):
+    file1.write("    Interface{}Left\n".format(n))
+    file1.write("    {\n        type wall;\n        faces\n        (\n")
+    file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1+16*n))
+    file1.write("        );\n    }\n\n")
+
+    file1.write("    Interface{}Right\n".format(n))
+    file1.write("    {\n        type wall;\n        faces\n        (\n")
+    file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2+16*n))
+    file1.write("        );\n    }\n\n")
+
+
+# Inlet segment interface
+
+face1  = np.array([2,3,9,8])+16*segments+12
+file1.write("    InterfaceInletLeft\n    {\n        type patch;\n        faces\n        (\n")
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1))
+file1.write("        );\n    }\n\n")
+
+face2  = np.array([5,6,14,13])
+file1.write("    InterfaceInletRight\n    {\n        type patch;\n        faces\n        (\n")
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2))
+file1.write("        );\n    }\n\n")
+
+
+# Outlet segment interface
+
+face1  = np.array([4,5,11,10])+16*segments
+face2  = np.array([5,0,6,11])+16*segments
+file1.write("    InterfaceOutletLeft\n    {\n        type patch;\n        faces\n        (\n")
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1))
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2))
+file1.write("        );\n    }\n\n")
+
+face1  = np.array([2,3,11,10])+16*(segments-1)
+face2  = np.array([1,2,10,9])+16*(segments-1)
+file1.write("    InterfaceOutletRight\n    {\n        type patch;\n        faces\n        (\n")
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face1))
+file1.write("            ({i[0]} {i[1]} {i[2]} {i[3]})\n".format(i=face2))
+file1.write("        );\n    }\n\n")
+
+
+# Close boundary section
+file1.write(");\n\n")
+
+
+
+
 # ------------------------------------------------------------------------------------
-# CLOSE FILE -------------------------------------------------------------------------
+# WRITE MERGE PATCH PAIRS ------------------------------------------------------------
 # ------------------------------------------------------------------------------------
+
+file1.write("mergePatchPairs\n(\n\n")
+
+# Rib-roughened segment interfaces
+for n in range(0,segments-1):
+    file1.write("    ( Interface{}Left Interface{}Right )\n".format(n,n))
+
+# Inlet segment interface
+file1.write("    ( InterfaceInletLeft InterfaceInletRight )\n")
+
+# Outlet segment interface
+file1.write("    ( InterfaceOutletLeft InterfaceOutletRight )\n")
 
 file1.write(");\n\n")
 
-file1.write("mergePatchPairs\n(\n);\n\n")
+# ------------------------------------------------------------------------------------
+# CLOSE FILE -------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------
 
 file1.close()
 

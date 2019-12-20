@@ -30,12 +30,37 @@ boundaryField
     {
         type            zeroGradient;
     }
-    upperWall
+    upperWallInlet
     {
         type            omegaWallFunction;
         value           uniform 138.6;
     }
-    lowerWall
+    upperWallRibs
+    {
+        type            omegaWallFunction;
+        value           uniform 138.6;
+    }
+    upperWallOutlet
+    {
+        type            omegaWallFunction;
+        value           uniform 138.6;
+    }
+    lowerWallInlet
+    {
+        type            omegaWallFunction;
+        value           uniform 138.6;
+    }
+    lowerWallRibs1
+    {
+        type            omegaWallFunction;
+        value           uniform 138.6;
+    }
+    lowerWallRibs2
+    {
+        type            omegaWallFunction;
+        value           uniform 138.6;
+    }
+    lowerWallOutlet
     {
         type            omegaWallFunction;
         value           uniform 138.6;

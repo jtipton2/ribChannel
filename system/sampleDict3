@@ -1,0 +1,26 @@
+type            	surfaces;
+libs            	("libsampling.so");
+
+writeControl    	writeTime;
+
+interpolationScheme 	cell;
+
+
+setFormat       	raw;
+surfaceFormat           raw;
+
+fields
+(
+   T U
+);
+sets
+(
+);
+surfaces
+(
+       outletValues
+        {
+           type         patch;
+           patches      (".*outlet.*");
+        }
+);
