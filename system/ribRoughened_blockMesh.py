@@ -15,6 +15,9 @@
 #    --> Added mesh refinement at the top
 # v4 --> 12/17/2019
 #    --> Split lower wall into 2 named sections for ribs and flat wall
+# v5 --> 12/30/2019
+#    --> Changed mesh grading to inflate around the ribs
+#    --> Broke apart file.write statements to make mesh grading more readable
 # ------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------
 
@@ -121,24 +124,101 @@ block0  = np.array([0,1,2,7,8,9,10,15])
 blockI  = np.array([7,2,3,4,15,10,11,12])
 blockII = np.array([6,7,4,5,14,15,12,13])
 
-for n in range(0,segments):
-    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (50 10 1)\n    simpleGrading (1 8 1)\n\n".format(i=block0+16*n))
-    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (50 40 1)\n    simpleGrading (1 ((0.875 0.75 1)(0.125 0.25 0.125)) 1)\n\n".format(i=blockI+16*n))
-    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    ( 5 40 1)\n    simpleGrading (1 ((0.875 0.75 1)(0.125 0.25 0.125)) 1)\n\n".format(i=blockII+16*n))
+for n in range(0,segments-1):
+    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n".format(i=block0+16*n))
+    file1.write("    (50 35 1)\n")
+    file1.write("    simpleGrading (\n")
+    file1.write("         ((0.125 0.25 8)(0.75 0.5 1)(0.125 0.25 0.125))\n")
+    file1.write("         1\n")
+    file1.write("         1\n")
+    file1.write("    )\n\n")
+
+    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n".format(i=blockI+16*n))
+    file1.write("    (50 40 1)\n")
+    file1.write("    simpleGrading (\n")
+    file1.write("         ((0.125 0.25 8)(0.75 0.5 1)(0.125 0.25 0.125))\n")
+    file1.write("         ((0.125 0.25 8)(0.75 0.50 1)(0.125 0.25 0.125))\n")
+    file1.write("         1\n")
+    file1.write("    )\n\n")
+
+    file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n".format(i=blockII+16*n))
+    file1.write("    (40 40 1)\n")
+    file1.write("    simpleGrading (\n")
+    file1.write("         1\n")
+    file1.write("         ((0.125 0.25 8)(0.75 0.50 1)(0.125 0.25 0.125))\n")
+    file1.write("         1\n")
+    file1.write("    )\n\n")
+
+n = segments-1
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n".format(i=block0+16*n))
+file1.write("    (50 35 1)\n")
+file1.write("    simpleGrading (\n")
+file1.write("         ((0.125 0.25 8)(0.875 0.75 1))\n")
+file1.write("         1\n")
+file1.write("         1\n")
+file1.write("    )\n\n")
+
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n".format(i=blockI+16*n))
+file1.write("    (50 40 1)\n")
+file1.write("    simpleGrading (\n")
+file1.write("         ((0.125 0.25 8)(0.875 0.75 1))\n")
+file1.write("         ((0.125 0.25 8)(0.75 0.50 1)(0.125 0.25 0.125))\n")
+file1.write("         1\n")
+file1.write("    )\n\n")
+
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n".format(i=blockII+16*n))
+file1.write("    (40 40 1)\n")
+file1.write("    simpleGrading (\n")
+file1.write("         1\n")
+file1.write("         ((0.125 0.25 8)(0.75 0.50 1)(0.125 0.25 0.125))\n")
+file1.write("         1\n")
+file1.write("    )\n\n")
+
+
 
 # Outlet segment
 block0  = np.array([0,1,2,5,6,7,8,11])
 blockI  = np.array([5,2,3,4,11,8,9,10])
 
-file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (40 10 1)\n    simpleGrading (8 8 1)\n\n".format(i=block0+16*segments))
-file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (40 40 1)\n    simpleGrading (8 ((0.875 0.75 1)(0.125 0.25 0.125)) 1)\n\n".format(i=blockI+16*segments))
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n".format(i=block0+16*segments))
+file1.write("    (40 35 1)\n")
+file1.write("    simpleGrading (\n")
+file1.write("         8\n")
+file1.write("         1\n")
+file1.write("         1\n")
+file1.write("    )\n\n")
+
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n".format(i=blockI+16*segments))
+file1.write("    (40 40 1)\n")
+file1.write("    simpleGrading (\n")
+file1.write("         8\n")
+file1.write("         ((0.125 0.25 8)(0.75 0.50 1)(0.125 0.25 0.125))\n")
+file1.write("         1\n")
+file1.write("    )\n\n")
+
+
 
 # Inlet segment
 block0  = np.array([0,1,2,5,6,7,8,11])
 blockI  = np.array([5,2,3,4,11,8,9,10])
 
-file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (160 10 1)\n    simpleGrading (0.125 8 1)\n\n".format(i=block0+16*segments+12))
-file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n    (160 40 1)\n    simpleGrading (0.125 ((0.875 0.75 1)(0.125 0.25 0.125)) 1)\n\n".format(i=blockI+16*segments+12))
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n".format(i=block0+16*segments+12))
+file1.write("    (160 35 1)\n")
+file1.write("    simpleGrading (\n")
+file1.write("         0.125\n")
+file1.write("         1\n")
+file1.write("         1\n")
+file1.write("    )\n\n")
+
+file1.write("    hex ({i[0]} {i[1]} {i[2]} {i[3]} {i[4]} {i[5]} {i[6]} {i[7]})\n".format(i=blockI+16*segments+12))
+file1.write("    (160 40 1)\n")
+file1.write("    simpleGrading (\n")
+file1.write("         0.125\n")
+file1.write("         ((0.125 0.25 8)(0.75 0.50 1)(0.125 0.25 0.125))\n")
+file1.write("         1\n")
+file1.write("    )\n\n")
+
+
 
 file1.write(");\n\n")
 
