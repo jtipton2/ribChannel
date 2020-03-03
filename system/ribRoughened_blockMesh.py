@@ -40,9 +40,9 @@ inlet = 750     # length of inlet segment
 # Set mesh density variables
 #
 
-P_x = 50	# number of cells in between ribs (x-dir)
-e_span = 35     # number of cells spanning a rib (x & y-dir)
-D_y = 40        # number of cells spanning channel (y-dir)
+P_x = 79	# number of cells in between ribs (x-dir)
+e_span = 72     # number of cells spanning a rib (x & y-dir)
+D_y = 66        # number of cells spanning channel (y-dir)
 
 #
 # Create file header

@@ -1,6 +1,6 @@
 Dir0 = "`pwd`"
-Dir1 = Dir0."/postProcessing/sampleDict2/800/"
-Dir2 = Dir0."/postProcessing/sampleDict1/800/"
+Dir1 = Dir0."/postProcessing/sampleDict2/7250/"
+Dir2 = Dir0."/postProcessing/sampleDict1/7250/"
 Dir3 = Dir0."/postProcessing/"
 
 cd Dir0

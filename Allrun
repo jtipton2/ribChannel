@@ -1,3 +1,5 @@
+date
+
 #
 # Clean the file structure for a new run
 #
@@ -63,3 +65,5 @@ postProcess -func sampleDict1 -latestTime
 postProcess -func sampleDict2 -latestTime
 gnuplot system/gnuplotScript2
 mirage postProcessing/ &
+
+date
