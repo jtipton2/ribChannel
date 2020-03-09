@@ -1,0 +1,34 @@
+#
+# Create a decent initial condition
+#
+potentialFoam
+rm 0/phi
+
+
+#
+# Decompose 0/ to each processor
+# (according to system/decomposeParDict)
+# (check capabilities via lscpu)
+#
+decomposePar
+
+
+#
+# Run solution
+# (np must match decomposeParDict)
+#
+nohup mpirun -np ## rhoSimpleFoam -parallel > logout.out &
+
+
+#
+# Observe residuals during solution
+#
+gnuplot plotResiduals -
+
+
+#
+# Other ways to monitor
+#
+# iostat
+# top
+# tail -100 logout.out

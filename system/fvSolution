@@ -55,6 +55,14 @@ solvers
         relTol          0.0;
     }
 
+   Phi
+    {
+        solver          GAMG;
+        smoother        DIC;
+        tolerance       1e-06;
+        relTol          0.01;
+    }
+
 }
 
 SIMPLE
@@ -76,6 +84,13 @@ SIMPLE
     }
 }
 
+
+potentialFlow
+{
+    nNonOrthogonalCorrectors 10;
+}
+
+
 relaxationFactors
 {
     fields
@@ -92,5 +107,6 @@ relaxationFactors
         e               0.7;
     }
 }
+
 
 // ************************************************************************* //
