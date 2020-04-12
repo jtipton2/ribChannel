@@ -11,8 +11,8 @@ gnuplot system/gnuplotScript1
 reconstructPar -latestTime
 
 rhoSimpleFoam -postProcess -func yPlus -latestTime
-rhoSimpleFoam -postProcess -func wallShearStress -latestTime
 rhoSimpleFoam -postProcess -func wallHeatFlux -latestTime
+rhoSimpleFoam -postProcess -func sampleRibPressDrop -latestTime
 
 postProcess -latestTime -func 'flowRatePatch(name=inlet)'
 postProcess -latestTime -func 'patchIntegrate(name=lowerWallRibs2,wallHeatFlux)'
