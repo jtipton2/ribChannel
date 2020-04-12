@@ -23,6 +23,6 @@ cp 0/U.orig 0/U
 python system/ribRoughened_blockMesh.py
 mv blockMeshDict system/
 blockMesh
-checkMesh
-renumberMesh -overwrite
+#checkMesh
+#renumberMesh -overwrite
 

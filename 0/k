@@ -67,11 +67,13 @@ boundaryField
     }
     front
     {
-        type            empty;
+        type            kqRWallFunction;
+        value           uniform 0.08;
     }
     back
     {
-        type            empty;
+        type            kqRWallFunction;
+        value           uniform 0.08;
     }
 }
 

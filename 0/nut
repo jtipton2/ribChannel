@@ -68,11 +68,13 @@ boundaryField
     }
     front
     {
-        type            empty;
+        type            nutUSpaldingWallFunction;
+        value           uniform 0;
     }
     back
     {
-        type            empty;
+        type            nutUSpaldingWallFunction;
+        value           uniform 0;
     }
 }
 

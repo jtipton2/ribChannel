@@ -61,11 +61,11 @@ boundaryField
     }
     front
     {
-        type            empty;
+        type            zeroGradient;
     }
     back
     {
-        type            empty;
+        type            zeroGradient;
     }
 }
 

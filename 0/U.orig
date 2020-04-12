@@ -60,11 +60,11 @@ boundaryField
     }
     front
     {
-        type            empty;
+        type            noSlip;
     }
     back
     {
-        type            empty;
+        type            noSlip;
     }
 }
 
